@@ -1,0 +1,20 @@
+{
+  "name": "sw-lcm-ordersystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "production": "PORT=3000 DB=mock node index.js",
+    "develop": "SET PORT=3000 && SET DB=mock && nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.15.4",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.3",
+    "nodemon": "^2.0.14",
+    "pug": "^3.0.2"
+  }
+}
