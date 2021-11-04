@@ -26,7 +26,7 @@ router.post('/user', async (req, res) => {
   try {
     res.send('User')
   } catch (error) {
-    console.error('Error GET /user', err)
+    console.error('Error POST /user', err)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -46,7 +46,7 @@ router.delete('/user/:userId', async (req, res) => {
   try {
     res.send('Deleted user med user id: ' + req.params.userId)
   } catch (error) {
-    console.error('Error GET /user/id', err)
+    console.error('Error DELETE /user/id', err)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -66,7 +66,7 @@ router.delete('/products/:productId', async (req, res) => {
   try {
     res.send('product med product Id: ' + req.params.productId)
   } catch (error) {
-    console.error('Error GET /products/id', err)
+    console.error('Error DELETE /products/id', err)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -76,7 +76,7 @@ router.post('/products', async (req, res) => {
   try {
     res.send('product med product Id: ' + req.params.productId)
   } catch (error) {
-    console.error('Error GET /products/id', err)
+    console.error('Error POST /products', err)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -96,7 +96,7 @@ router.post('/orders/:userId', async (req, res) => {
   try {
     res.send('order med user Id: ' + req.params.userId)
   } catch (error) {
-    console.error('Error GET /orders/userid', err)
+    console.error('Error POST /orders/userid', err)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -116,6 +116,21 @@ router.get('/orders/:userId/:productId', async (req, res) => {
   }
 })
 
+// Add product to user order.
+router.post('/orders/:userId/:productId', async (req, res) => {
+  try {
+    res.send(
+      'order med user id :' +
+        req.params.userId +
+        'product med product Id: ' +
+        req.params.productId
+    )
+  } catch (error) {
+    console.error('Error POST /orders/userid/productid', err)
+    res.status(500).send(SERVER_ERROR)
+  }
+})
+
 // Delete product from user order.
 router.delete('/orders/:userId/:productId', async (req, res) => {
   try {
@@ -126,7 +141,7 @@ router.delete('/orders/:userId/:productId', async (req, res) => {
         req.params.productId
     )
   } catch (error) {
-    console.error('Error GET /orders/userid/productid', err)
+    console.error('Error DELETE /orders/userid/productid', err)
     res.status(500).send(SERVER_ERROR)
   }
 })
