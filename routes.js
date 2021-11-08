@@ -61,8 +61,11 @@ router.get('/user/:userId', async (req, res) => {
 
 // Delete user with corresponding user id.
 router.delete('/user/:userId', async (req, res) => {
+  const { userId } = req.params
   try {
-    res.send('Deleted user med user id: ' + req.params.userId)
+    const db = await createDb(dbConf, 'mongo', 'Users')
+    await db.deleteOne(userId)
+    res.status(200).send({ deleted: true })
   } catch (error) {
     console.error('Error DELETE /user/id', error)
     res.status(500).send(SERVER_ERROR)
