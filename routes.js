@@ -124,63 +124,55 @@ router.post('/products', async (req, res) => {
 
 // Get orders for user.
 router.get('/orders/:userId', async (req, res) => {
+  const { userId } = req.params
   try {
-    res.send('order med user Id: ' + req.params.userId)
+    const db = await createDb(dbConf, 'mongo', 'Orders')
+    const getUserOrdersData = await db.getAllById(userId)
+    res.send(getUserOrdersData)
   } catch (error) {
-    console.error('Error GET /orders/userid', error)
+    console.error('Error GET /user/id', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
 
 // Add products to user order.
 router.post('/orders/:userId', async (req, res) => {
+  const { userId } = req.params
+  // Array of objects containing product id and amount of each product.
+  const { products } = req.body
+
+  const date = new Date().toISOString() // Todays date.
   try {
-    res.send('order med user Id: ' + req.params.userId)
+    const db = await createDb(dbConf, 'mongo', 'Orders')
+    await db.createOne({ userId, products, date })
+    res.status(201).send({ created: true })
   } catch (error) {
     console.error('Error POST /orders/userid', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
 
-// Get product from user order.
-router.get('/orders/:userId/:productId', async (req, res) => {
+// Modify a order by id.
+router.put('/orders/edit/:orderId', async (req, res) => {
+  const { orderId } = req.params
+  const data = req.body
   try {
-    res.send(
-      'order med user id :' +
-        req.params.userId +
-        'product med product Id: ' +
-        req.params.productId
-    )
+    const db = await createDb(dbConf, 'mongo', 'Orders')
+    await db.updateOne(orderId, data)
+    res.status(201).send({ created: true })
   } catch (error) {
-    console.error('Error GET /orders/userid/productid', error)
+    console.error('Error PUT /orders/orderId', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
 
-// Add product to user order.
-router.post('/orders/:userId/:productId', async (req, res) => {
+// Delete order.
+router.delete('/orders/delete/:orderId', async (req, res) => {
+  const { orderId } = req.params
   try {
-    res.send(
-      'order med user id :' +
-        req.params.userId +
-        'product med product Id: ' +
-        req.params.productId
-    )
-  } catch (error) {
-    console.error('Error POST /orders/userid/productid', error)
-    res.status(500).send(SERVER_ERROR)
-  }
-})
-
-// Delete product from user order.
-router.delete('/orders/:userId/:productId', async (req, res) => {
-  try {
-    res.send(
-      'order med user id :' +
-        req.params.userId +
-        'product med product Id: ' +
-        req.params.productId
-    )
+    const db = await createDb(dbConf, 'mongo', 'Orders')
+    await db.deleteOne(orderId)
+    res.status(200).send({ deleted: true })
   } catch (error) {
     console.error('Error DELETE /orders/userid/productid', error)
     res.status(500).send(SERVER_ERROR)
