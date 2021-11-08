@@ -28,27 +28,33 @@ router.get('/user', async (req, res) => {
     const getAllUserData = await db.getAll()
     res.send(getAllUserData)
   } catch (error) {
-    console.error('Error GET /user', err)
+    console.error('Error GET /user', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
 
 // Add new user.
 router.post('/user', async (req, res) => {
+  const { firstname, lastname, adress } = req.body
   try {
-    res.send('User')
+    const db = await createDb(dbConf, 'mongo', 'Users')
+    await db.createOne({ firstname, lastname, adress })
+    res.status(201).send({ created: true })
   } catch (error) {
-    console.error('Error POST /user', err)
+    console.error('Error POST /user', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
 
 // Get user with corresponding user id.
 router.get('/user/:userId', async (req, res) => {
+  const { userId } = req.params
   try {
-    res.send('user med user id: ' + req.params.userId)
+    const db = await createDb(dbConf, 'mongo', 'Users')
+    const getOneUserData = await db.getOne(userId)
+    res.send(getOneUserData)
   } catch (error) {
-    console.error('Error GET /user/id', err)
+    console.error('Error GET /user/id', error)
     res.status(500).send(SERVER_ERROR)
   }
 })

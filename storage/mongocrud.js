@@ -1,3 +1,6 @@
+import Mongo from 'mongodb'
+const ObjectId = Mongo.ObjectId // Needed for the querying in findAll with objectId.
+
 class MongoCRUD {
   constructor(db, collection) {
     this.db = db
@@ -14,7 +17,7 @@ class MongoCRUD {
 
   async getOne(id) {
     try {
-      return await this.collection.findOne({ _id: ObjectId(id) })
+      return await this.collection.findOne(new ObjectId(id))
     } catch (err) {
       throw new Error(`Error ${this.collection}.getOne with id: ${id}`, err)
     }
@@ -34,7 +37,7 @@ class MongoCRUD {
 
   async deleteOne(id) {
     try {
-      await this.collection.deleteOne({ _id: ObjectId(id) })
+      await this.collection.deleteOne({ _id: new ObjectId(id) })
     } catch (err) {
       throw new Error(`Error ${this.collection}.deleteOne with id: ${id}`, err)
     }
