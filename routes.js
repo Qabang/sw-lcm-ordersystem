@@ -79,10 +79,14 @@ router.get('/products', async (req, res) => {
     res.status(500).send(SERVER_ERROR)
   }
 })
+
 // Get product with corresponding id.
 router.get('/products/:productId', async (req, res) => {
+  const { productId } = req.params
   try {
-    res.send('product med product Id: ' + req.params.productId)
+    const db = await createDb(dbConf, 'mongo', 'Products')
+    const getOneProductData = await db.getOne(productId)
+    res.send(getOneProductData)
   } catch (error) {
     console.error('Error GET /products/id', error)
     res.status(500).send(SERVER_ERROR)
@@ -91,8 +95,11 @@ router.get('/products/:productId', async (req, res) => {
 
 // Delete the product with corresponding product id.
 router.delete('/products/:productId', async (req, res) => {
+  const { productId } = req.params
   try {
-    res.send('product med product Id: ' + req.params.productId)
+    const db = await createDb(dbConf, 'mongo', 'Products')
+    await db.deleteOne(productId)
+    res.status(200).send({ deleted: true })
   } catch (error) {
     console.error('Error DELETE /products/id', error)
     res.status(500).send(SERVER_ERROR)
@@ -101,8 +108,11 @@ router.delete('/products/:productId', async (req, res) => {
 
 // Add new product to db.
 router.post('/products', async (req, res) => {
+  const { name, cost, description, amount } = req.body
   try {
-    res.send('product med product Id: ' + req.params.productId)
+    const db = await createDb(dbConf, 'mongo', 'Products')
+    await db.createOne({ name, cost, description, amount })
+    res.status(201).send({ created: true })
   } catch (error) {
     console.error('Error POST /products', error)
     res.status(500).send(SERVER_ERROR)
