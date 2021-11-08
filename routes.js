@@ -15,8 +15,8 @@ router.get('/', async (req, res) => {
     const db = await createDb(dbConf, 'mongo', 'Users')
     const getAllData = await db.getAll()
     res.send(getAllData)
-  } catch (err) {
-    console.error('Error GET /allData', err)
+  } catch (error) {
+    console.error('Error GET /allData', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -64,7 +64,7 @@ router.delete('/user/:userId', async (req, res) => {
   try {
     res.send('Deleted user med user id: ' + req.params.userId)
   } catch (error) {
-    console.error('Error DELETE /user/id', err)
+    console.error('Error DELETE /user/id', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -75,7 +75,7 @@ router.get('/products', async (req, res) => {
     const getAllProducts = await db.getAll()
     res.send(getAllProducts)
   } catch (error) {
-    console.error('Error GET /products/id', err)
+    console.error('Error GET /products/id', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -84,7 +84,7 @@ router.get('/products/:productId', async (req, res) => {
   try {
     res.send('product med product Id: ' + req.params.productId)
   } catch (error) {
-    console.error('Error GET /products/id', err)
+    console.error('Error GET /products/id', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -94,7 +94,7 @@ router.delete('/products/:productId', async (req, res) => {
   try {
     res.send('product med product Id: ' + req.params.productId)
   } catch (error) {
-    console.error('Error DELETE /products/id', err)
+    console.error('Error DELETE /products/id', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -104,7 +104,7 @@ router.post('/products', async (req, res) => {
   try {
     res.send('product med product Id: ' + req.params.productId)
   } catch (error) {
-    console.error('Error POST /products', err)
+    console.error('Error POST /products', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -114,7 +114,7 @@ router.get('/orders/:userId', async (req, res) => {
   try {
     res.send('order med user Id: ' + req.params.userId)
   } catch (error) {
-    console.error('Error GET /orders/userid', err)
+    console.error('Error GET /orders/userid', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -124,7 +124,7 @@ router.post('/orders/:userId', async (req, res) => {
   try {
     res.send('order med user Id: ' + req.params.userId)
   } catch (error) {
-    console.error('Error POST /orders/userid', err)
+    console.error('Error POST /orders/userid', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -139,7 +139,7 @@ router.get('/orders/:userId/:productId', async (req, res) => {
         req.params.productId
     )
   } catch (error) {
-    console.error('Error GET /orders/userid/productid', err)
+    console.error('Error GET /orders/userid/productid', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -154,7 +154,7 @@ router.post('/orders/:userId/:productId', async (req, res) => {
         req.params.productId
     )
   } catch (error) {
-    console.error('Error POST /orders/userid/productid', err)
+    console.error('Error POST /orders/userid/productid', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -169,7 +169,7 @@ router.delete('/orders/:userId/:productId', async (req, res) => {
         req.params.productId
     )
   } catch (error) {
-    console.error('Error DELETE /orders/userid/productid', err)
+    console.error('Error DELETE /orders/userid/productid', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
