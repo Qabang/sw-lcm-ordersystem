@@ -159,7 +159,7 @@ router.put('/orders/edit/:orderId', async (req, res) => {
   try {
     const db = await createDb(dbConf, 'mongo', 'Orders')
     await db.updateOne(orderId, data)
-    res.status(201).send({ created: true })
+    res.status(201).send({ Updated: true })
   } catch (error) {
     console.error('Error PUT /orders/orderId', error)
     res.status(500).send(SERVER_ERROR)
