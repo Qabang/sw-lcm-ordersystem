@@ -1,6 +1,12 @@
 const router = require('express').Router()
 
+const router = express.Router()
 const SERVER_ERROR = 'Server Error'
+
+const dbConf = {
+  name: process.env.DB_NAME,
+  connectionUrl: process.env.DB_CONNECTION_URL
+}
 
 router.get('/', async (req, res) => {
   try {
