@@ -22,6 +22,19 @@ class MongoCRUD {
       throw new Error(`Error ${this.collection}.getOne with id: ${id}`, err)
     }
   }
+
+  async getOrdersByProductId(uid, pid) {
+    console.log(`products.${pid}`)
+    try {
+      //db.myCollection.find({ 'makes.fgh': { $exists: true } })
+      return await this.collection
+        .find({ userId: uid, [`products.${pid}`]: { $exists: true } })
+        .toArray()
+    } catch (err) {
+      throw new Error(`Error ${this.collection}.getOne with id: ${id}`, err)
+    }
+  }
+
   async getOne(id) {
     try {
       return await this.collection.findOne(new ObjectId(id))

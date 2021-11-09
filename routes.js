@@ -122,12 +122,38 @@ router.post('/products', async (req, res) => {
   }
 })
 
-// Get orders for user.
+// Get all orders.
+router.get('/orders', async (req, res) => {
+  const { userId } = req.params
+  try {
+    const db = await createDb(dbConf, 'mongo', 'Orders')
+    const getOrdersData = await db.getAll()
+    res.send(getOrdersData)
+  } catch (error) {
+    console.error('Error GET /user/id', error)
+    res.status(500).send(SERVER_ERROR)
+  }
+})
+
+// Get all orders for user.
 router.get('/orders/:userId', async (req, res) => {
   const { userId } = req.params
   try {
     const db = await createDb(dbConf, 'mongo', 'Orders')
     const getUserOrdersData = await db.getAllById(userId)
+    res.send(getUserOrdersData)
+  } catch (error) {
+    console.error('Error GET /user/id', error)
+    res.status(500).send(SERVER_ERROR)
+  }
+})
+
+// Get all orders for user with product.
+router.get('/orders/:userId/:productId', async (req, res) => {
+  const { userId, productId } = req.params
+  try {
+    const db = await createDb(dbConf, 'mongo', 'Orders')
+    const getUserOrdersData = await db.getOrdersByProductId(userId, productId)
     res.send(getUserOrdersData)
   } catch (error) {
     console.error('Error GET /user/id', error)
