@@ -1,12 +1,22 @@
-const router = require('express').Router()
+import express from 'express'
+import createDb from './storage/db.js'
 
+const dbConf = {
+  name: 'ordersystem',
+  connectionUrl: `mongodb+srv://hampus:eH3ti17f8SA3s6s1@ordersystem.9xjhj.mongodb.net/ordersystem?retryWrites=true&w=majority`
+}
+
+const router = express.Router()
 const SERVER_ERROR = 'Server Error'
 
 router.get('/', async (req, res) => {
   try {
-    res.send('Start')
-  } catch (error) {
-    console.error('Error GET /', err)
+    //TODO Visa alla collections på samma gång
+    const db = await createDb(dbConf, 'mongo', 'Users')
+    const getAllData = await db.getAll()
+    res.send(getAllData)
+  } catch (err) {
+    console.error('Error GET /allData', err)
     res.status(500).send(SERVER_ERROR)
   }
 })
@@ -14,7 +24,9 @@ router.get('/', async (req, res) => {
 // List all users.
 router.get('/user', async (req, res) => {
   try {
-    res.send('User')
+    const db = await createDb(dbConf, 'mongo', 'Users')
+    const getAllUserData = await db.getAll()
+    res.send(getAllUserData)
   } catch (error) {
     console.error('Error GET /user', err)
     res.status(500).send(SERVER_ERROR)
@@ -50,7 +62,17 @@ router.delete('/user/:userId', async (req, res) => {
     res.status(500).send(SERVER_ERROR)
   }
 })
-
+// Get all products
+router.get('/products', async (req, res) => {
+  try {
+    const db = await createDb(dbConf, 'mongo', 'Products')
+    const getAllProducts = await db.getAll()
+    res.send(getAllProducts)
+  } catch (error) {
+    console.error('Error GET /products/id', err)
+    res.status(500).send(SERVER_ERROR)
+  }
+})
 // Get product with corresponding id.
 router.get('/products/:productId', async (req, res) => {
   try {
@@ -146,4 +168,4 @@ router.delete('/orders/:userId/:productId', async (req, res) => {
   }
 })
 
-module.exports = router
+export default router
