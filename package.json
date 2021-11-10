@@ -18,7 +18,6 @@
     "win-prod": "set PORT=3000 && set DB=mongo && node index.js",
     "develop": "PORT=3000 DB=mock nodemon index.js",
     "win-dev": "set PORT=3000 && set DB=mock && nodemon index.js",
-    "test": "jest"
   },
   "author": "Patrik Nygren",
   "license": "ISC",
