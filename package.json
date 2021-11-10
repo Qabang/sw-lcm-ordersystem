@@ -14,6 +14,7 @@
     ]
   },
   "scripts": {
+    "start": "node index.js",
     "production": "PORT=3000 DB=mongo node index.js",
     "win-prod": "set PORT=3000 && set DB=mongo && node index.js",
     "develop": "PORT=3000 DB=mock nodemon index.js",
