@@ -1,20 +1,25 @@
 import express from 'express'
 import createDb from './storage/db.js'
 
-import dotenv from 'dotenv'
 const router = express.Router()
 const SERVER_ERROR = 'Server Error'
-
-const file = process.env.NODE_ENV
-  ? { path: `./.env.${process.env.NODE_ENV}` }
-  : { path: `./.env` }
-
-dotenv.config(file)
 
 const dbConf = {
   name: process.env.DB_NAME,
   connectionUrl: process.env.DB_CONNECTION_URL
 }
+
+// Landingpage.
+router.get('/', async (req, res) => {
+  try {
+    console.log(process.env.PORT)
+    console.log(process.env.DB_NAME)
+    res.send('Hello World!')
+  } catch (error) {
+    console.error('Error GET /user', error)
+    res.status(500).send(SERVER_ERROR)
+  }
+})
 
 // List all users.
 router.get('/user', async (req, res) => {
