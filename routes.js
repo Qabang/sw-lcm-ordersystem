@@ -12,11 +12,11 @@ const dbConf = {
 // Landingpage.
 router.get('/', async (req, res) => {
   try {
-    console.log(process.env.PORT)
-    console.log(process.env.DB_NAME)
-    res.send('Hello World!')
+    res.send(
+      'Ordersystem - SW-LCM <br/> by: Sandra Lindström, Car-El Williams och Hampus Aronsson'
+    )
   } catch (error) {
-    console.error('Error GET /user', error)
+    console.error('Error GET /', error)
     res.status(500).send(SERVER_ERROR)
   }
 })
