@@ -14,9 +14,11 @@
     ]
   },
   "scripts": {
-    "production": "SET NODE_ENV=prod&& node index.js",
-    "develop": "SET NODE_ENV=dev&& nodemon index.js",
-    "test": "jest"
+    "start": "node index.js",
+    "production": "PORT=3000 DB=mongo node index.js",
+    "win-prod": "set PORT=3000 && set DB=mongo && node index.js",
+    "develop": "PORT=3000 DB=mock nodemon index.js",
+    "win-dev": "set PORT=3000 && set DB=mock && nodemon index.js"
   },
   "author": "Sandra Lindström, Car-El Williams, Hampus Aronsson",
   "license": "ISC",

@@ -1,16 +1,14 @@
-import createDb from './storage/db.js'
 import createApp from './app.js'
 
 const port = process.env.PORT || 3000
 const dbType = process.env.DB || 'mock' // mock or mongo
 
-const main = async (port, dbConf) => {
+const main = async (port) => {
   try {
-    const db = await createDb(dbConf, dbType)
-    const app = await createApp(db)
+    const app = await createApp()
     app.listen(port, () => {
       console.log(
-        `Students app (${dbType}) listening at http://localhost:${port}`
+        `App (${dbType}) listening at http://localhost:${port}`
       )
     })
   } catch (err) {
@@ -18,4 +16,4 @@ const main = async (port, dbConf) => {
   }
 }
 
-main(port, dbConf)
+main(port)
