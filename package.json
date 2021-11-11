@@ -16,15 +16,14 @@
   "scripts": {
     "start": "node index.js",
     "production": "PORT=3000 DB=mongo node index.js",
-    "win-prod": "set PORT=3000 && set DB=mongo && node index.js",
+    "win-prod": "set PORT=3000&& set DB=mongo&& node index.js",
     "develop": "PORT=3000 DB=mock nodemon index.js",
-    "win-dev": "set PORT=3000 && set DB=mock && nodemon index.js"
+    "win-dev": "set PORT=3000&& set DB=mock&& nodemon index.js"
   },
   "author": "Sandra Lindström, Car-El Williams, Hampus Aronsson",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.15.4",
-    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongodb": "^4.1.3",
     "nodemon": "^2.0.14"
