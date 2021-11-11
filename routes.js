@@ -1,30 +1,20 @@
 import express from 'express'
 import createDb from './storage/db.js'
 
-const dbConf = {
-  name: 'ordersystem',
-  connectionUrl: `mongodb+srv://hampus:eH3ti17f8SA3s6s1@ordersystem.9xjhj.mongodb.net/ordersystem?retryWrites=true&w=majority`
-}
-
+import dotenv from 'dotenv'
 const router = express.Router()
 const SERVER_ERROR = 'Server Error'
+
+const file = process.env.NODE_ENV
+  ? { path: `./.env.${process.env.NODE_ENV}` }
+  : { path: `./.env` }
+
+dotenv.config(file)
 
 const dbConf = {
   name: process.env.DB_NAME,
   connectionUrl: process.env.DB_CONNECTION_URL
 }
-
-router.get('/', async (req, res) => {
-  try {
-    //TODO Visa alla collections på samma gång
-    const db = await createDb(dbConf, 'mongo', 'Users')
-    const getAllData = await db.getAll()
-    res.send(getAllData)
-  } catch (error) {
-    console.error('Error GET /allData', error)
-    res.status(500).send(SERVER_ERROR)
-  }
-})
 
 // List all users.
 router.get('/user', async (req, res) => {
